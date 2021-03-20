@@ -1,0 +1,41 @@
+Sub RunAll()
+    Call DeleteFirstRow
+    Call DeleteFirstColumn
+    Call DelRowsWithoutText
+    Call DeleteColumnH
+    Call AddHeaders
+    Call AddFormula
+End Sub
+Sub DeleteFirstRow()
+    Rows(1).EntireRow.Delete
+End Sub
+Sub DeleteFirstColumn()
+    Columns(1).EntireColumn.Delete
+End Sub
+Sub DelRowsWithoutText()
+    Set myRange = Application.Selection
+    Set myRange = Application.InputBox("Select one Range which contain texts that you want to delete rows based on", "DelRowsNotContainCertainText", myRange.Address, Type:=8)
+    cText = Application.InputBox("Please type a certain text", "DelRowsNotContainCertainText", "", Type:=2)
+    For i = myRange.Rows.Count To 1 Step -1
+        Set myRow = myRange.Rows(i)
+        Set myCell = myRow.Find(cText, LookIn:=xlValues)
+        If myCell Is Nothing Then
+           myRow.Delete
+        End If
+    Next
+End Sub
+Sub DeleteColumnH()
+    Columns("H").EntireColumn.Delete
+End Sub
+Sub AddHeaders()
+    Worksheets(1).Range("J1").Formula = "Conf_W-L%"
+    Worksheets(1).Range("M1").Formula = "Home_W-L%"
+    Worksheets(1).Range("P1").Formula = "Away_W-L%"
+    Worksheets(1).Range("S1").Formula = "Point_T-O%"
+End Sub
+Sub AddFormula()
+    Range("J2").Formula = "=H2/SUM(H2+I2)"
+    Range("M2").Formula = "=K2/SUM(K2+L2)"
+    Range("P2").Formula = "=N2/SUM(N2+O2)"
+    Range("S2").Formula = "=Q2/SUM(Q2+R2)"
+End Sub
