@@ -1,7 +1,6 @@
 jupyterlab
 numpy
 pandas
-os
 plotly-express
 voila
 matplotlib
